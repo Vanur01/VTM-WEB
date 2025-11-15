@@ -1,0 +1,148 @@
+"use client";
+
+import React from "react";
+import { Code, Smartphone, Layers, Globe, Zap, Box } from "lucide-react";
+
+export default function TrustedBrands() {
+  const logos = [
+    { icon: Box, text: "Logoipsum" },
+    { icon: Zap, text: "LOGO" },
+    { icon: Layers, text: "logoipsum" },
+    { icon: Globe, text: "logoipsum" },
+    { icon: Code, text: "LOGO" },
+    { icon: Smartphone, text: "LOGOIPSUM" },
+    { icon: Box, text: "Logoipsum" },
+    { icon: Globe, text: "logo-ipsum" },
+    { icon: Zap, text: "LOGO" },
+    { icon: Layers, text: "logo ipsum" },
+  ];
+
+  // Split logos into two rows
+  const firstRow = logos.slice(0, 5);
+  const secondRow = logos.slice(5, 10);
+
+  return (
+    <div
+      className="flex items-center justify-center p-8"
+      style={{ backgroundColor: "#0A0012" }}
+    >
+      <div className="max-w-full w-full">
+        {/* Header Text */}
+        <div className="text-center mb-16">
+          <h1 className="text-xl md:text-3xl lg:text-4xl font-bold mb-6 leading-tight">
+            <span className="text-white">We create </span>
+            <span className="text-purple-500 italic">custom websites</span>
+            <span className="text-white">, </span>
+            <span className="text-purple-500 italic">mobile apps</span>
+            <span className="text-white">, and </span>
+            <br className="hidden md:block" />
+            <span className="text-purple-500 italic">digital platforms</span>
+            <span className="text-white"> tailored to your vision.</span>
+          </h1>
+
+          <p className="text-gray-400 text-shadow-amber-700 sm:text-lg">
+            <span className="text-purple-400">✦</span> Trusted by{" "}
+            <span className="text-white font-semibold">200+ innovators</span>{" "}
+            worldwide. <span className="text-purple-400">✦</span>
+          </p>
+        </div>
+
+        {/* Logo Scrolling Rows */}
+        <div className="space-y-4 overflow-hidden">
+          {/* First Row - Scroll Right to Left */}
+          <div className="relative">
+            <div className="flex animate-scroll-left gap-4">
+              {[...firstRow, ...firstRow, ...firstRow].map((logo, index) => (
+                <div
+                  key={index}
+                  className="rounded-full border border-purple-900/50 bg-linear-to-br from-purple-950/20 to-transparent p-3 sm:p-4 md:p-6 flex items-center justify-center hover:border-purple-700/50 hover:bg-purple-950/30 transition-all duration-300 cursor-pointer group shrink-0 min-w-32 sm:min-w-40 md:min-w-48 min-h-12 md:min-h-[60px]"
+                  style={{
+                    backdropFilter: "blur(10px)",
+                  }}
+                >
+                  <div className="flex items-center gap-2 sm:gap-3 text-white opacity-70 group-hover:opacity-100 transition-opacity">
+                    <logo.icon
+                      className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7"
+                      strokeWidth={2}
+                    />
+                    <span className="font-semibold text-xs sm:text-sm">
+                      {logo.text}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Second Row - Scroll Left to Right */}
+          <div className="relative">
+            <div className="flex animate-scroll-right gap-4">
+              {[...secondRow, ...secondRow, ...secondRow].map((logo, index) => (
+                <div
+                  key={index}
+                  className="rounded-full border border-purple-900/50 bg-linear-to-br from-purple-950/20 to-transparent p-3 sm:p-4 md:p-6 flex items-center justify-center hover:border-purple-700/50 hover:bg-purple-950/30 transition-all duration-300 cursor-pointer group shrink-0 min-w-32 sm:min-w-40 md:min-w-48 min-h-12 md:min-h-[60px]"
+                  style={{
+                    backdropFilter: "blur(10px)",
+                  }}
+                >
+                  <div className="flex items-center gap-2 sm:gap-3 text-white opacity-70 group-hover:opacity-100 transition-opacity">
+                    <logo.icon
+                      className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7"
+                      strokeWidth={2}
+                    />
+                    <span className="font-semibold text-xs sm:text-sm">
+                      {logo.text}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <style jsx>{`
+          @keyframes scroll-left {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-33.333%);
+            }
+          }
+
+          @keyframes scroll-right {
+            0% {
+              transform: translateX(-33.333%);
+            }
+            100% {
+              transform: translateX(0);
+            }
+          }
+
+          .animate-scroll-left {
+            animation: scroll-left 20s linear infinite;
+          }
+
+          .animate-scroll-right {
+            animation: scroll-right 20s linear infinite;
+          }
+
+          /* Slower animation on small screens for better readability */
+          @media (max-width: 640px) {
+            .animate-scroll-left {
+              animation-duration: 30s;
+            }
+            .animate-scroll-right {
+              animation-duration: 30s;
+            }
+          }
+
+          .animate-scroll-left:hover,
+          .animate-scroll-right:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+      </div>
+    </div>
+  );
+}
