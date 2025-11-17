@@ -9,19 +9,23 @@ import TestimonialsSection from '@/components/Home/TestimonialsSection';
 import CTASection from '@/components/CTASection';
 import { HeroSection } from '@/components/Home/HeroSection';
 import FeaturedProjects from '@/components/Home/FeaturedProjects';
+import PageLoader from '@/components/PageLoader';
 
 const Home = () => {
   return (
-    <div className="bg-[#0B0011]">
-      <HeroSection />
-      <TrustedBrands />
-      <ImpactStats />
-      <FeaturedProjects />
-      <ServicesSection />
-      <WorkflowSection />
-      <TestimonialsSection />
-      <CTASection />
-    </div>
+    <>
+      <PageLoader />
+      <div className="bg-[#0B0011]">
+        <HeroSection />
+        <TrustedBrands />
+        <ImpactStats />
+        <FeaturedProjects />
+        <ServicesSection />
+        <WorkflowSection />
+        <TestimonialsSection />
+        <CTASection />
+      </div>
+    </>
   );
 };
 
