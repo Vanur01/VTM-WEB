@@ -23,6 +23,7 @@ export default function BlogGrid() {
       setError('');
       
       try {
+        
         // Fetch categories
         const categoriesResponse = await categoryApi.getAllCategories({ limit: 100 });
         if (categoriesResponse.success && categoriesResponse.result && Array.isArray(categoriesResponse.result)) {
