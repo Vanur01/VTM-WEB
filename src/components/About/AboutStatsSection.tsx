@@ -23,7 +23,7 @@ export default function AboutStatsSection() {
       const progress = step / steps;
       
       setCounts({
-        years: Math.floor(2 * progress),
+        years: Math.floor(5 * progress),
         results: Math.floor(99 * progress),
         projects: Math.floor(200 * progress),
         hours: Math.floor(50 * progress)
@@ -32,7 +32,7 @@ export default function AboutStatsSection() {
       if (step >= steps) {
         clearInterval(timer);
         setCounts({
-          years: 2,
+          years: 5,
           results: 99,
           projects: 200,
           hours: 50
@@ -123,15 +123,15 @@ export default function AboutStatsSection() {
               }}
             >
               <p className="text-white text-base sm:text-lg md:text-xl leading-relaxed">
-                Vanurtech was born to empower the next generation of changemakers. We partner with ambitious brands to navigate digital complexity, transforming vision into scalable, tech-enabled momentum. Our mission is simple: make innovation feel effortless.
+                Welcome to our firm that specializes in Creative Advertisement, Digital Marketing, Website Development. We develop modern, easy apps that optimize processes and boost productivity. Our mission is to create solutions that are ready for the future and support the development of both individuals and enterprises in the world of digital technology. Utilizing modern technologies and a customer-oriented technique, we create applications that simplify and enhance life.
               </p>
 
               <div className="pt-3 sm:pt-4">
                 <div className="text-white font-semibold text-base sm:text-lg">
-                  Tushar Kumar Swain
+                  Software Development Solutions
                 </div>
                 <div className="text-gray-400 text-xs sm:text-sm">
-                  CEO & Co-founder
+                   Vanurtech Media Pvt. Ltd
                 </div>
               </div>
             </div>

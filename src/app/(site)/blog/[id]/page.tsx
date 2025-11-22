@@ -1,141 +1,68 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, Tag, ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import { SparklesCore } from '@/components/ui/sparkles';
 import CTASection from '@/components/CTASection';
 import { useParams } from 'next/navigation';
-
-// Mock blog data - in production, this would come from a CMS or API
-const getBlogPost = (id: string) => {
-  const posts: { [key: string]: any } = {
-    '1': {
-      id: '1',
-      title: 'The Future of Web Development: Trends to Watch in 2025',
-      excerpt: 'Explore the cutting-edge technologies and frameworks shaping the future of web development.',
-      category: 'Web Development',
-      date: 'Nov 10, 2025',
-      readTime: '5 min read',
-      author: 'Sarah Johnson',
-      authorRole: 'Senior Web Developer',
-      tags: ['React', 'Next.js', 'AI', 'Web3'],
-      content: `
-        <h2>Introduction</h2>
-        <p>The web development landscape is evolving at an unprecedented pace. As we navigate through 2025, several key trends are emerging that will define how we build digital experiences for years to come.</p>
-        
-        <h2>1. AI-Powered Development Tools</h2>
-        <p>Artificial Intelligence is no longer just a buzzword—it's becoming an integral part of the development workflow. From code completion to automated testing, AI assistants are helping developers work smarter and faster.</p>
-        
-        <h3>Key Benefits:</h3>
-        <ul>
-          <li>Faster code writing with intelligent suggestions</li>
-          <li>Automated bug detection and fixes</li>
-          <li>Smart code refactoring recommendations</li>
-          <li>Natural language to code conversion</li>
-        </ul>
-        
-        <h2>2. Server Components and Edge Computing</h2>
-        <p>The rise of server components, particularly with frameworks like Next.js 14+, is revolutionizing how we think about rendering. Edge computing brings computation closer to users, dramatically improving performance.</p>
-        
-        <blockquote>
-          "The future of web development lies in finding the perfect balance between server and client rendering, optimizing for both performance and user experience."
-        </blockquote>
-        
-        <h2>3. Web3 and Decentralized Applications</h2>
-        <p>While the initial hype has settled, Web3 technologies are maturing and finding practical applications. Developers are exploring blockchain integration, decentralized storage, and smart contracts in meaningful ways.</p>
-        
-        <h2>4. Progressive Web Apps (PWA) 2.0</h2>
-        <p>PWAs are experiencing a renaissance with improved capabilities, better browser support, and enhanced offline functionality. The line between web and native apps continues to blur.</p>
-        
-        <h2>Conclusion</h2>
-        <p>As we look ahead, the web development ecosystem will continue to evolve with a focus on performance, user experience, and developer productivity. Staying current with these trends will be crucial for building modern, competitive web applications.</p>
-      `
-    },
-    '2': {
-      id: '2',
-      title: 'Mobile-First Design: Why It Matters More Than Ever',
-      excerpt: 'Learn why prioritizing mobile experiences is crucial for modern digital success.',
-      category: 'Design',
-      date: 'Nov 8, 2025',
-      readTime: '4 min read',
-      author: 'Michael Chen',
-      authorRole: 'UX Design Lead',
-      tags: ['UX', 'Mobile', 'Design', 'Responsive'],
-      content: `
-        <h2>The Mobile-First Imperative</h2>
-        <p>In today's digital landscape, mobile devices account for over 60% of all web traffic. This shift demands a fundamental change in how we approach design and development.</p>
-        
-        <h2>Why Mobile-First?</h2>
-        <p>Mobile-first design isn't just about making your site look good on small screens—it's about rethinking the entire user experience from the ground up.</p>
-        
-        <h3>Core Principles:</h3>
-        <ul>
-          <li>Prioritize content hierarchy for small screens</li>
-          <li>Optimize touch targets for finger navigation</li>
-          <li>Design with bandwidth constraints in mind</li>
-          <li>Progressive enhancement for larger screens</li>
-        </ul>
-        
-        <h2>Performance Considerations</h2>
-        <p>Mobile users expect lightning-fast experiences. Page load time directly impacts bounce rates, conversions, and SEO rankings.</p>
-        
-        <blockquote>
-          "A 1-second delay in mobile load times can impact conversions by up to 20%."
-        </blockquote>
-        
-        <h2>Best Practices</h2>
-        <p>Implementing mobile-first design requires a strategic approach that balances aesthetics with functionality and performance.</p>
-      `
-    },
-    '3': {
-      id: '3',
-      title: 'SEO Strategies That Actually Work in 2025',
-      excerpt: 'Discover proven SEO tactics to boost your website\'s visibility and organic traffic.',
-      category: 'SEO',
-      date: 'Nov 5, 2025',
-      readTime: '6 min read',
-      author: 'Emily Rodriguez',
-      authorRole: 'SEO Specialist',
-      tags: ['SEO', 'Marketing', 'Content', 'Analytics'],
-      content: `
-        <h2>The SEO Landscape in 2025</h2>
-        <p>Search Engine Optimization continues to evolve with Google's algorithm updates and changing user behaviors. Here's what's working now.</p>
-        
-        <h2>1. E-E-A-T and Content Quality</h2>
-        <p>Experience, Expertise, Authoritativeness, and Trustworthiness remain paramount. Google's AI is better than ever at identifying high-quality, authoritative content.</p>
-        
-        <h2>2. Core Web Vitals</h2>
-        <p>Technical performance metrics are now critical ranking factors:</p>
-        <ul>
-          <li>Largest Contentful Paint (LCP)</li>
-          <li>First Input Delay (FID)</li>
-          <li>Cumulative Layout Shift (CLS)</li>
-        </ul>
-        
-        <h2>3. Semantic Search Optimization</h2>
-        <p>Understanding search intent and creating comprehensive topic clusters is more important than keyword density.</p>
-        
-        <h2>Conclusion</h2>
-        <p>SEO success in 2025 requires a holistic approach combining technical excellence, content quality, and user experience.</p>
-      `
-    }
-  };
-
-  return posts[id] || null;
-};
+import { blogApi, Blog } from '@/api';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const BlogDetailPage = () => {
   const params = useParams();
   const id = params?.id as string;
-  const post = getBlogPost(id);
+  const [post, setPost] = useState<Blog | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  if (!post) {
+  useEffect(() => {
+    const fetchBlog = async () => {
+      if (!id) return;
+      
+      setIsLoading(true);
+      setError('');
+      
+      try {
+        const response = await blogApi.getBlogById(id);
+        if (response.success) {
+          setPost(response.result);
+        }
+      } catch (err: any) {
+        setError(err.message || 'Failed to fetch blog post');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBlog();
+  }, [id]);
+
+  // Format date helper
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric', 
+      year: 'numeric' 
+    });
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#0A0012]">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+      </div>
+    );
+  }
+
+  if (error || !post) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0A0012]">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Blog Post Not Found</h1>
+          <h1 className="text-4xl font-bold text-white mb-4">{error || 'Blog Post Not Found'}</h1>
           <Link href="/blog" className="text-purple-500 hover:text-purple-400">
             ← Back to Blog
           </Link>
@@ -182,7 +109,7 @@ const BlogDetailPage = () => {
               className="mb-4"
             >
               <span className="px-4 py-2 rounded-full bg-purple-600 text-white text-sm font-medium">
-                {post.category}
+                {typeof post.category === 'string' ? post.category : post.category?.name || 'Uncategorized'}
               </span>
             </motion.div>
 
@@ -196,7 +123,7 @@ const BlogDetailPage = () => {
               {post.title}
             </motion.h1>
 
-            {/* Meta Info */}
+            {/* Author Info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -205,20 +132,20 @@ const BlogDetailPage = () => {
             >
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 rounded-full bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold">
-                  {post.author.split(' ').map((n: string) => n[0]).join('')}
+                  {post.author.name.split(' ').map((n: string) => n[0]).join('')}
                 </div>
                 <div>
-                  <div className="text-white font-medium">{post.author}</div>
-                  <div className="text-sm">{post.authorRole}</div>
+                  <div className="text-white font-medium">{post.author.name}</div>
+                  <div className="text-sm">{post.author.email}</div>
                 </div>
               </div>
               <span className="flex items-center gap-1">
                 <Calendar size={16} />
-                {post.date}
+                {formatDate(post.publishedAt)}
               </span>
               <span className="flex items-center gap-1">
                 <Clock size={16} />
-                {post.readTime}
+                {post.readingTime} min read
               </span>
             </motion.div>
 
@@ -251,22 +178,43 @@ const BlogDetailPage = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="max-w-5xl mx-auto"
         >
-          {/* Featured Image Placeholder */}
-          <div className="mb-12 rounded-2xl overflow-hidden bg-linear-to-br from-purple-900/40 to-pink-900/40 h-64 sm:h-96"></div>
+          {/* Featured Image */}
+          <div className="mb-12 rounded-2xl overflow-hidden">
+            <img 
+              src={post.coverImage} 
+              alt={post.title}
+              className="w-full h-64 sm:h-96 object-cover"
+            />
+          </div>
 
           {/* Content */}
           <div 
             className="prose prose-invert prose-lg max-w-none
               prose-headings:text-white prose-headings:font-bold
+              prose-h1:text-3xl prose-h1:sm:text-4xl prose-h1:mb-4 prose-h1:mt-8
               prose-h2:text-2xl prose-h2:sm:text-3xl prose-h2:mb-4 prose-h2:mt-8
               prose-h3:text-xl prose-h3:sm:text-2xl prose-h3:mb-3 prose-h3:mt-6
+              prose-h4:text-lg prose-h4:sm:text-xl prose-h4:mb-2 prose-h4:mt-4
               prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
-              prose-ul:text-gray-300 prose-ul:my-4
-              prose-li:mb-2
-              prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-400
-              prose-strong:text-white"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+              prose-a:text-purple-400 prose-a:no-underline hover:prose-a:text-purple-300 hover:prose-a:underline
+              prose-ul:text-gray-300 prose-ul:my-4 prose-ul:list-disc prose-ul:pl-6
+              prose-ol:text-gray-300 prose-ol:my-4 prose-ol:list-decimal prose-ol:pl-6
+              prose-li:mb-2 prose-li:text-gray-300
+              prose-code:text-purple-400 prose-code:bg-purple-900/30 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:before:content-[''] prose-code:after:content-['']
+              prose-pre:bg-gray-900 prose-pre:text-gray-300 prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto prose-pre:my-6
+              prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-400 prose-blockquote:my-6
+              prose-strong:text-white prose-strong:font-bold
+              prose-em:text-gray-200 prose-em:italic
+              prose-img:rounded-lg prose-img:my-6
+              prose-hr:border-purple-900/30 prose-hr:my-8
+              prose-table:border-collapse prose-table:w-full prose-table:my-6
+              prose-th:border prose-th:border-purple-900/30 prose-th:bg-purple-900/20 prose-th:p-3 prose-th:text-left prose-th:text-white
+              prose-td:border prose-td:border-purple-900/30 prose-td:p-3 prose-td:text-gray-300"
+          >
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {post.content}
+            </ReactMarkdown>
+          </div>
 
           {/* Share Section */}
           <div className="mt-12 pt-8 border-t border-purple-900/30">

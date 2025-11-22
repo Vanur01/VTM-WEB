@@ -8,93 +8,58 @@ export function HeroSection() {
 
 export const products = [
   {
-    title: "Moonbeam",
-    link: "https://gomoonbeam.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/moonbeam.png",
+    title: "The Materials",
+    link: "https://thematerials.in/",
+    thumbnail: "/images/prjtImages/prj1.png",
   },
   {
-    title: "Cursor",
-    link: "https://cursor.so",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cursor.png",
+    title: "UniTech Refrigeration",
+    link: "https://unitechrefrigeration.in/",
+    thumbnail: "/images/prjtImages/prj2.png",
   },
   {
-    title: "Rogue",
-    link: "https://userogue.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/rogue.png",
+    title: "Kalinga Interiors",
+    link: "https://kalingainteriors.in/",
+    thumbnail: "/images/prjtImages/prj3.png",
   },
   {
-    title: "Editorially",
-    link: "https://editorially.org",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editorially.png",
+    title: "Watersol Technologies",
+    link: "https://watersol.co.in/",
+    thumbnail: "/images/prjtImages/prj4.png",
   },
   {
-    title: "Editrix AI",
-    link: "https://editrix.ai",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editrix.png",
+    title: "AskSafety Security",
+    link: "https://asksafetysecurity.com/",
+    thumbnail: "/images/prjtImages/prj5.png",
   },
   {
-    title: "Pixel Perfect",
-    link: "https://app.pixelperfect.quest",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/pixelperfect.png",
+    title: "DesignSkp",
+    link: "https://designskp.com/",
+    thumbnail: "/images/prjtImages/prj6.png",
   },
   {
-    title: "Algochurn",
-    link: "https://algochurn.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/algochurn.png",
+    title: "Running Notations",
+    link: "https://runningnotations.in/",
+    thumbnail: "/images/prjtImages/prj7.png",
   },
   {
-    title: "Aceternity UI",
-    link: "https://ui.aceternity.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/aceternityui.png",
+    title: "Odisha Bakery House",
+    link: "https://lightgoldenrodyellow-loris-579251.hostingersite.com/",
+    thumbnail: "/images/prjtImages/prj8.png",
   },
   {
-    title: "Tailwind Master Kit",
-    link: "https://tailwindmasterkit.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/tailwindmasterkit.png",
+    title: "O.M.S. School",
+    link: "https://omsschool.in/",
+    thumbnail: "/images/prjtImages/prj9.png",
   },
   {
-    title: "SmartBridge",
-    link: "https://smartbridgetech.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/smartbridge.png",
+    title: "Jiana Infrahomes",
+    link: "https://jianainfrahomes.com/",
+    thumbnail: "/images/prjtImages/prj10.png",
   },
   {
-    title: "Renderwork Studio",
-    link: "https://renderwork.studio",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/renderwork.png",
-  },
-  {
-    title: "Creme Digital",
-    link: "https://cremedigital.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cremedigital.png",
-  },
-  {
-    title: "Golden Bells Academy",
-    link: "https://goldenbellsacademy.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/goldenbellsacademy.png",
-  },
-  {
-    title: "Invoker Labs",
-    link: "https://invoker.lol",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/invoker.png",
-  },
-  {
-    title: "E Free Invoice",
-    link: "https://efreeinvoice.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
+    title: "AgroLite",
+    link: "https://agrolite.in/",
+    thumbnail: "/images/prjtImages/prj11.png",
   },
 ];

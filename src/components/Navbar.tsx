@@ -69,14 +69,16 @@ const Navbar = () => {
 
           {/* CTA Button - Right */}
           <div className="hidden lg:flex items-center">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-purple-600 to-purple-500 text-white px-6 py-2 rounded-full font-medium hover:shadow-lg transition-shadow duration-200 flex items-center space-x-2"
-            >
-              <span>Start a Project</span>
-              <ArrowRight className="h-4 w-4" />
-            </motion.button>
+            <Link href="/contact">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-linear-to-r from-purple-600 to-purple-500 text-white px-6 py-2 rounded-full font-medium hover:shadow-lg transition-shadow duration-200 flex items-center space-x-2"
+              >
+                <span>Start a Project</span>
+                <ArrowRight className="h-4 w-4" />
+              </motion.button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -117,7 +119,7 @@ const Navbar = () => {
               <div className="pt-4">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
-                  className="w-full bg-gradient-to-r from-purple-600 to-purple-500 text-white py-3 rounded-full font-medium flex items-center justify-center space-x-2"
+                  className="w-full bg-linear-to-r from-purple-600 to-purple-500 text-white py-3 rounded-full font-medium flex items-center justify-center space-x-2"
                 >
                   <span>Start a Project</span>
                   <ArrowRight className="h-4 w-4" />

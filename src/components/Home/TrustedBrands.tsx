@@ -1,25 +1,38 @@
 "use client";
 
 import React from "react";
-import { Code, Smartphone, Layers, Globe, Zap, Box } from "lucide-react";
+import Image from "next/image";
 
 export default function TrustedBrands() {
-  const logos = [
-    { icon: Box, text: "Logoipsum" },
-    { icon: Zap, text: "LOGO" },
-    { icon: Layers, text: "logoipsum" },
-    { icon: Globe, text: "logoipsum" },
-    { icon: Code, text: "LOGO" },
-    { icon: Smartphone, text: "LOGOIPSUM" },
-    { icon: Box, text: "Logoipsum" },
-    { icon: Globe, text: "logo-ipsum" },
-    { icon: Zap, text: "LOGO" },
-    { icon: Layers, text: "logo ipsum" },
+  const clientImages = [
+    // "/images/clients/1.png",
+    "/images/clients/2.webp",
+    "/images/clients/3.webp",
+    "/images/clients/4.webp",
+    "/images/clients/5.webp",
+    "/images/clients/6.webp",
+    "/images/clients/7.webp",
+    "/images/clients/8.webp",
+    "/images/clients/9.webp",
+    "/images/clients/10.webp",
+    "/images/clients/11.webp",
+    "/images/clients/12.webp",
   ];
 
-  // Split logos into two rows
-  const firstRow = logos.slice(0, 5);
-  const secondRow = logos.slice(5, 10);
+  // Shuffle array function
+  const shuffleArray = (array: string[]) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // Split logos into two rows with random order
+  const shuffledImages = shuffleArray(clientImages);
+  const firstRow = shuffledImages.slice(0, 6);
+  const secondRow = shuffledImages.slice(6, 12);
 
   return (
     <div
@@ -55,19 +68,16 @@ export default function TrustedBrands() {
               {[...firstRow, ...firstRow, ...firstRow].map((logo, index) => (
                 <div
                   key={index}
-                  className="rounded-full border border-purple-900/50 bg-linear-to-br from-purple-950/20 to-transparent p-3 sm:p-4 md:p-6 flex items-center justify-center hover:border-purple-700/50 hover:bg-purple-950/30 transition-all duration-300 cursor-pointer group shrink-0 min-w-32 sm:min-w-40 md:min-w-48 min-h-12 md:min-h-[60px]"
-                  style={{
-                    backdropFilter: "blur(10px)",
-                  }}
+                  className="rounded-full border border-gray-200 bg-white p-3 sm:p-4 md:p-6 flex items-center justify-center hover:border-purple-400 hover:shadow-lg transition-all duration-300 cursor-pointer group shrink-0 min-w-32 sm:min-w-40 md:min-w-48 min-h-12 md:min-h-[60px]"
                 >
-                  <div className="flex items-center gap-2 sm:gap-3 text-white opacity-70 group-hover:opacity-100 transition-opacity">
-                    <logo.icon
-                      className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7"
-                      strokeWidth={2}
+                  <div className="flex items-center justify-center w-full h-full">
+                    <Image
+                      src={logo}
+                      alt={`Client logo ${index + 1}`}
+                      width={120}
+                      height={60}
+                      className="object-contain group-hover:scale-110 transition-transform duration-300 max-w-full max-h-full"
                     />
-                    <span className="font-semibold text-xs sm:text-sm">
-                      {logo.text}
-                    </span>
                   </div>
                 </div>
               ))}
@@ -80,19 +90,16 @@ export default function TrustedBrands() {
               {[...secondRow, ...secondRow, ...secondRow].map((logo, index) => (
                 <div
                   key={index}
-                  className="rounded-full border border-purple-900/50 bg-linear-to-br from-purple-950/20 to-transparent p-3 sm:p-4 md:p-6 flex items-center justify-center hover:border-purple-700/50 hover:bg-purple-950/30 transition-all duration-300 cursor-pointer group shrink-0 min-w-32 sm:min-w-40 md:min-w-48 min-h-12 md:min-h-[60px]"
-                  style={{
-                    backdropFilter: "blur(10px)",
-                  }}
+                  className="rounded-full border border-gray-200 bg-white p-3 sm:p-4 md:p-6 flex items-center justify-center hover:border-purple-400 hover:shadow-lg transition-all duration-300 cursor-pointer group shrink-0 min-w-32 sm:min-w-40 md:min-w-48 min-h-12 md:min-h-[60px]"
                 >
-                  <div className="flex items-center gap-2 sm:gap-3 text-white opacity-70 group-hover:opacity-100 transition-opacity">
-                    <logo.icon
-                      className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7"
-                      strokeWidth={2}
+                  <div className="flex items-center justify-center w-full h-full">
+                    <Image
+                      src={logo}
+                      alt={`Client logo ${index + 7}`}
+                      width={120}
+                      height={60}
+                      className="object-contain group-hover:scale-110 transition-transform duration-300 max-w-full max-h-full"
                     />
-                    <span className="font-semibold text-xs sm:text-sm">
-                      {logo.text}
-                    </span>
                   </div>
                 </div>
               ))}

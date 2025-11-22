@@ -1,76 +1,106 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { projectApi, Project } from '@/api';
 
 export default function FeaturedProjects() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const projects = [
+  // Fetch projects from API
+  useEffect(() => {
+    const fetchProjects = async () => {
+      setIsLoading(true);
+      setError('');
+      
+      try {
+        const response = await projectApi.getAllProjects({
+          page: 1,
+          limit: 6, // Only fetch 6 projects for featured section
+        });
+
+        if (response.success) {
+          setProjects(response.result.projects);
+        }
+      } catch (err: any) {
+        setError(err.message || 'Failed to fetch projects');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  const projectsOld = [
     {
       id: 1,
-      title: 'Wallife Concepts',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, Headless WordPress, Netlify)',
-      image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=600&fit=crop',
-      tag: 'Web Design'
+      title: 'Naman Construction Pvt. Ltd',
+      description: 'Complete digital solution for a leading construction company featuring project showcases, client testimonials, and real-time project tracking with interactive galleries.',
+      tech: '(Next.js, Prisma, PostgreSQL)',
+      image: '/images/projects/prj-1.webp',
+      tag: 'Construction'
     },
     {
       id: 2,
-      title: 'Zilusion',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, DataCMS, Vercel)',
-      image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop',
-      tag: 'Web Design'
+      title: 'Radhamohan Construction',
+      description: 'Modern construction company website with portfolio management, service listings, and client engagement features to showcase residential and commercial projects.',
+      tech: '(React, Node.js, MongoDB)',
+      image: '/images/projects/prj-2.webp',
+      tag: 'Construction'
     },
     {
       id: 3,
-      title: 'OVM Memorial School',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, DataCMS, Vercel)',
-      image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop',
-      tag: 'Web Design'
+      title: 'THE Materials',
+      description: 'E-commerce platform for furniture materials and design solutions with advanced product catalog, custom quotations, and seamless ordering system for interior designers.',
+      tech: '(Next.js, Stripe, Tailwind CSS)',
+      image: '/images/projects/prj-3.webp',
+      tag: 'E-Commerce'
     },
     {
       id: 4,
-      title: 'Aatmaan Foundation',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, Headless WordPress, Netlify)',
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop',
-      tag: 'Web Design'
+      title: 'CFDRA - Book Publications',
+      description: 'Comprehensive publishing platform for academic research and book publications, offering manuscript evaluation, editing, ISBN services, and complete publication management.',
+      tech: '(Next.js, Headless CMS, Vercel)',
+      image: '/images/projects/prj-4.webp',
+      tag: 'Publishing'
     },
     {
       id: 5,
-      title: 'Tech Innovators',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(React, Node.js, AWS)',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
-      tag: 'Mobile App'
+      title: 'Zilusion Design',
+      description: 'Creative portfolio and business website for a design agency showcasing branding projects, UI/UX designs, and creative services with stunning visual presentations.',
+      tech: '(Vue.js, Firebase, Netlify)',
+      image: '/images/projects/prj-5.webp',
+      tag: 'Design Agency'
     },
     {
       id: 6,
-      title: 'Creative Studio',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Vue.js, Firebase, Netlify)',
-      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop',
-      tag: 'Web Design'
+      title: 'Bijaya Infrastructure',
+      description: 'Professional infrastructure company website featuring major construction projects, engineering solutions, and service offerings with detailed project timelines and achievements.',
+      tech: '(React, TypeScript, AWS)',
+      image: '/images/projects/prj-6.webp',
+      tag: 'Infrastructure'
     },
     {
       id: 7,
-      title: 'Digital Marketing Hub',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, Sanity, Vercel)',
-      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
-      tag: 'CRM'
+      title: 'Naman Construction Pvt. Ltd',
+      description: 'Complete digital solution for a leading construction company featuring project showcases, client testimonials, and real-time project tracking with interactive galleries.',
+      tech: '(Next.js, Prisma, PostgreSQL)',
+      image: '/images/projects/prj-1.webp',
+      tag: 'Construction'
     },
     {
       id: 8,
-      title: 'E-Commerce Platform',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(React, Shopify, AWS)',
-      image: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop',
-      tag: 'Web Design'
+      title: 'Radhamohan Construction',
+      description: 'Modern construction company website with portfolio management, service listings, and client engagement features to showcase residential and commercial projects.',
+      tech: '(React, Node.js, MongoDB)',
+      image: '/images/projects/prj-2.webp',
+      tag: 'Construction'
     }
   ];
 
@@ -130,104 +160,112 @@ export default function FeaturedProjects() {
           </motion.div>
         </div>
 
-        {/* Projects Grid - Alternating Layout */}
-        <div className="space-y-6 sm:space-y-8 mt-12 sm:mt-20">
-          {/* Row 1: 40% - 60% */}
-          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
-            <motion.div
-              custom={0}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardVariants}
-              className="w-full lg:w-[40%]"
-            >
-              <ProjectCard project={projects[0]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-            </motion.div>
-            <motion.div
-              custom={1}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardVariants}
-              className="w-full lg:w-[60%]"
-            >
-              <ProjectCard project={projects[1]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-            </motion.div>
+        {/* Loading State */}
+        {isLoading && (
+          <div className="flex flex-col items-center justify-center py-20">
+            <div className="relative">
+              <div className="w-16 h-16 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
+              <Sparkles className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-purple-400" />
+            </div>
+            <p className="text-gray-400 mt-6 text-lg">Loading featured projects...</p>
           </div>
+        )}
 
-          {/* Row 2: 60% - 40% */}
-          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
-            <motion.div
-              custom={2}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardVariants}
-              className="w-full lg:w-[60%]"
+        {/* Error State */}
+        {error && !isLoading && (
+          <div className="text-center py-20">
+            <p className="text-red-400 mb-6 text-lg">{error}</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="px-6 py-3 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-500 transition-colors"
             >
-              <ProjectCard project={projects[2]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-            </motion.div>
-            <motion.div
-              custom={3}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardVariants}
-              className="w-full lg:w-[40%]"
-            >
-              <ProjectCard project={projects[3]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-            </motion.div>
+              Try Again
+            </button>
           </div>
+        )}
 
-          {/* Row 3: 40% - 60% */}
-          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
-            <motion.div
-              custom={4}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardVariants}
-              className="w-full lg:w-[40%]"
-            >
-              <ProjectCard project={projects[4]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-            </motion.div>
-            <motion.div
-              custom={5}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardVariants}
-              className="w-full lg:w-[60%]"
-            >
-              <ProjectCard project={projects[5]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-            </motion.div>
-          </div>
+        {/* Projects Grid - Alternating Layout (Only 6 projects) */}
+        {!isLoading && !error && projects.length > 0 && (
+          <div className="space-y-6 sm:space-y-8 mt-12 sm:mt-20">
+            {/* Row 1: 40% - 60% */}
+            {projects[0] && projects[1] && (
+              <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
+                <motion.div
+                  custom={0}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={cardVariants}
+                  className="w-full lg:w-[40%]"
+                >
+                  <ProjectCard project={projects[0]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                </motion.div>
+                <motion.div
+                  custom={1}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={cardVariants}
+                  className="w-full lg:w-[60%]"
+                >
+                  <ProjectCard project={projects[1]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                </motion.div>
+              </div>
+            )}
 
-          {/* Row 4: 60% - 40% */}
-          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
-            <motion.div
-              custom={6}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardVariants}
-              className="w-full lg:w-[60%]"
-            >
-              <ProjectCard project={projects[6]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-            </motion.div>
-            <motion.div
-              custom={7}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={cardVariants}
-              className="w-full lg:w-[40%]"
-            >
-              <ProjectCard project={projects[7]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-            </motion.div>
+            {/* Row 2: 60% - 40% */}
+            {projects[2] && projects[3] && (
+              <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
+                <motion.div
+                  custom={2}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={cardVariants}
+                  className="w-full lg:w-[60%]"
+                >
+                  <ProjectCard project={projects[2]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                </motion.div>
+                <motion.div
+                  custom={3}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={cardVariants}
+                  className="w-full lg:w-[40%]"
+                >
+                  <ProjectCard project={projects[3]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                </motion.div>
+              </div>
+            )}
+
+            {/* Row 3: 40% - 60% */}
+            {projects[4] && projects[5] && (
+              <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
+                <motion.div
+                  custom={4}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={cardVariants}
+                  className="w-full lg:w-[40%]"
+                >
+                  <ProjectCard project={projects[4]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                </motion.div>
+                <motion.div
+                  custom={5}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  variants={cardVariants}
+                  className="w-full lg:w-[60%]"
+                >
+                  <ProjectCard project={projects[5]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                </motion.div>
+              </div>
+            )}
           </div>
-        </div>
+        )}
 
         {/* Bottom CTA Section */}
         <motion.div 
@@ -250,24 +288,26 @@ export default function FeaturedProjects() {
           </p>
 
             <div className="flex items-center justify-center gap-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold text-lg border border-purple-500 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/50"
-            >
-              <span className="relative z-10">Land on Projects</span>
-              <svg 
-              className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
+            <Link href="/work">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold text-lg border border-purple-500 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/50"
               >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-              
-              {/* Animated gradient overlay on hover */}
-              <div className="absolute inset-0 bg-linear-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </motion.button>
+                <span className="relative z-10">Land on Projects</span>
+                <svg 
+                className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+                >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+                
+                {/* Animated gradient overlay on hover */}
+                <div className="absolute inset-0 bg-linear-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </motion.button>
+            </Link>
             </div>
         </motion.div>
       </div>
@@ -276,39 +316,38 @@ export default function FeaturedProjects() {
 }
 
 interface ProjectCardProps {
-  project: {
-    id: number;
-    title: string;
-    description: string;
-    tech: string;
-    image: string;
-    tag: string;
-  };
-  hoveredCard: number | null;
-  setHoveredCard: (id: number | null) => void;
+  project: Project; // Use API Project type instead of local type
+  hoveredCard: string | null;
+  setHoveredCard: (id: string | null) => void;
 }
 
 function ProjectCard({ project, hoveredCard, setHoveredCard }: ProjectCardProps) {
   return (
     <div
       className="group relative h-full"
-      onMouseEnter={() => setHoveredCard(project.id)}
+      onMouseEnter={() => setHoveredCard(project._id)}
       onMouseLeave={() => setHoveredCard(null)}
     >
       {/* Card Container */}
       <div className="h-full rounded-2xl sm:rounded-3xl border border-purple-900/50 bg-linear-to-br from-purple-950/20 to-transparent overflow-hidden hover:border-purple-600 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20">
         {/* Content Section */}
         <div className="p-4 sm:p-6 md:p-8">
-          <div className="text-xs text-purple-400 mb-3 sm:mb-4">{project.tech}</div>
+          <div className="text-xs text-purple-400 mb-3 sm:mb-4">
+            {typeof project.category === 'string' ? project.category : project.category?.name || 'Project'}
+          </div>
           <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 group-hover:text-purple-400 transition-colors">
             {project.title}
           </h3>
-          <p className="text-gray-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+          <p className="text-gray-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base line-clamp-3">
             {project.description}
           </p>
           <div className="inline-block">
             <span className="px-4 sm:px-6 py-2 rounded-full bg-purple-600 text-white text-xs sm:text-sm font-semibold hover:bg-purple-500 transition-colors cursor-pointer">
-              {project.tag}
+              {project.tags && project.tags.length > 0 
+                ? project.tags[0] 
+                : typeof project.category === 'string' 
+                  ? project.category 
+                  : project.category?.name || 'Project'}
             </span>
           </div>
         </div>
@@ -318,7 +357,7 @@ function ProjectCard({ project, hoveredCard, setHoveredCard }: ProjectCardProps)
           <div
             className="rounded-xl sm:rounded-2xl overflow-hidden transform transition-transform duration-700 group-hover:scale-105"
             style={{
-              boxShadow: hoveredCard === project.id ? '0 20px 60px rgba(168, 85, 247, 0.4)' : '0 10px 30px rgba(0, 0, 0, 0.5)'
+              boxShadow: hoveredCard === project._id ? '0 20px 60px rgba(168, 85, 247, 0.4)' : '0 10px 30px rgba(0, 0, 0, 0.5)'
             }}
           >
             <img

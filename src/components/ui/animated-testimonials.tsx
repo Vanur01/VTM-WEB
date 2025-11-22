@@ -40,9 +40,22 @@ export const AnimatedTestimonials = ({
     }
   }, [autoplay]);
 
+  // Safety check to ensure active index is valid
+  useEffect(() => {
+    if (active >= testimonials.length) {
+      setActive(0);
+    }
+  }, [active, testimonials.length]);
+
   const randomRotateY = () => {
     return Math.floor(Math.random() * 21) - 10;
   };
+
+  // Add safety check before rendering
+  if (!testimonials || testimonials.length === 0 || !testimonials[active]) {
+    return null;
+  }
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-12">
       <div className="relative grid grid-cols-1 gap-8 sm:gap-12 md:gap-16 md:grid-cols-2">

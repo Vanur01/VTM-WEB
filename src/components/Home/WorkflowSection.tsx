@@ -29,7 +29,7 @@ export default function WorkflowSection() {
 
           <div className="overflow-hidden rounded-2xl sm:rounded-3xl">
             <Image
-              src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80"
+              src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Team collaboration"
               width={800}
               height={400}
@@ -61,7 +61,7 @@ export default function WorkflowSection() {
 
           <div className="overflow-hidden rounded-2xl sm:rounded-3xl">
             <Image
-              src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80"
+              src="https://images.unsplash.com/photo-1565687999932-cf35bd872e77?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Design process"
               width={800}
               height={400}
@@ -107,7 +107,7 @@ export default function WorkflowSection() {
 
           <div className="overflow-hidden rounded-2xl sm:rounded-3xl">
             <Image
-              src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80"
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Development and launch"
               width={800}
               height={400}
@@ -122,7 +122,7 @@ export default function WorkflowSection() {
   return (
     <div className="w-full bg-[#0B0011]">
       {/* Header Section */}
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-10">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:pt-16 md:px-8 md:pt-20 lg:pt-10">
         <div className="mb-4 inline-block rounded-full border border-purple-500/30 bg-purple-500/10 px-3 sm:px-4 py-2">
           <span className="text-xs sm:text-sm font-medium text-purple-400">
             Our Workflow
