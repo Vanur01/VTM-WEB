@@ -1,31 +1,89 @@
 "use client";
 
 import React, { useState } from "react";
-import { Rocket, Phone, MessageSquare, Send } from "lucide-react";
+import { Rocket, Phone, MessageSquare, Send, CheckCircle, XCircle } from "lucide-react";
+import { ctaApi } from "@/api";
 
 export default function CTASection() {
   const [mobile, setMobile] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [notification, setNotification] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
+
+  const showNotification = (type: "success" | "error", message: string) => {
+    setNotification({ type, message });
+    setTimeout(() => setNotification(null), 5000);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate mobile number
+    if (!/^[0-9]{10}$/.test(mobile)) {
+      showNotification("error", "Please enter a valid 10-digit mobile number");
+      return;
+    }
+
+    if (!message.trim()) {
+      showNotification("error", "Please enter a message");
+      return;
+    }
+
     setIsSubmitting(true);
     
-    // TODO: Add API call here
-    console.log({ mobile, message });
-    
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await ctaApi.submitCTA({
+        mobile,
+        message: message.trim(),
+      });
+
+      if (response.success) {
+        // Clear form
+        setMobile("");
+        setMessage("");
+        
+        // Show success message
+        showNotification("success", "Thank you! Your message has been sent successfully. We'll get back to you soon!");
+      }
+    } catch (error: any) {
+      console.error("CTA submission error:", error);
+      showNotification("error", error.message || "Failed to send message. Please try again.");
+    } finally {
       setIsSubmitting(false);
-      setMobile("");
-      setMessage("");
-      alert("Message sent successfully!");
-    }, 1000);
+    }
   };
 
   return (
     <div className=" my-20 w-full bg-[#0B0011] px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-10">
+      {/* Toast Notification */}
+      {notification && (
+        <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 duration-300">
+          <div
+            className={`flex items-center gap-3 rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-2xl backdrop-blur-lg border max-w-md ${
+              notification.type === "success"
+                ? "bg-green-500/90 border-green-400/50 text-white"
+                : "bg-red-500/90 border-red-400/50 text-white"
+            }`}
+          >
+            {notification.type === "success" ? (
+              <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
+            ) : (
+              <XCircle className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
+            )}
+            <p className="text-sm sm:text-base font-medium">{notification.message}</p>
+            <button
+              onClick={() => setNotification(null)}
+              className="ml-2 text-white/80 hover:text-white transition-colors"
+            >
+              <XCircle className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+      
       <div className="mx-auto max-w-7xl">
         <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-purple-500/30 bg-linear-to-br from-purple-950/50 via-purple-900/30 to-transparent p-6 sm:p-8 md:p-12 lg:p-16 xl:p-20">
           {/* Glow effect */}
