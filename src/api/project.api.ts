@@ -15,6 +15,7 @@ export interface Project {
   image: string;
   category: string | Category; // Can be string (ID) or populated Category object
   tags: string[];
+  website?: string; // Optional website URL
   createdAt: string;
   updatedAt: string;
   __v: number;

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { ExternalLink } from 'lucide-react';
 import { projectApi, Project, categoryApi, Category } from '@/api';
 
 export default function ProjectsGrid() {
@@ -65,104 +66,7 @@ export default function ProjectsGrid() {
   const endIndex = startIndex + itemsPerPage;
   const projects = filteredProjects.slice(startIndex, endIndex);
 
-  const projectsOld = [
-    {
-      id: 1,
-      title: 'Wallife Concepts',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, Headless WordPress, Netlify)',
-      image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=600&fit=crop',
-      category: 'Web Design'
-    },
-    {
-      id: 2,
-      title: 'Zilusion',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, DataCMS, Vercel)',
-      image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop',
-      category: 'Web Design'
-    },
-    {
-      id: 3,
-      title: 'OVM Memorial School',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, DataCMS, Vercel)',
-      image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop',
-      category: 'Web Design'
-    },
-    {
-      id: 4,
-      title: 'Aatmaan Foundation',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, Headless WordPress, Netlify)',
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop',
-      category: 'Web Design'
-    },
-    {
-      id: 5,
-      title: 'Tech Innovators',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(React, Node.js, AWS)',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
-      category: 'Mobile App'
-    },
-    {
-      id: 6,
-      title: 'Creative Studio',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Vue.js, Firebase, Netlify)',
-      image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop',
-      category: 'Web Design'
-    },
-    {
-      id: 7,
-      title: 'Digital Marketing Hub',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, Sanity, Vercel)',
-      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
-      category: 'CRM'
-    },
-    {
-      id: 8,
-      title: 'E-Commerce Platform',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(React, Shopify, AWS)',
-      image: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop',
-      category: 'Web Design'
-    },
-    {
-      id: 9,
-      title: 'Fitness Tracker Pro',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(React Native, Firebase, Cloud Functions)',
-      image: 'https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=800&h=600&fit=crop',
-      category: 'Mobile App'
-    },
-    {
-      id: 10,
-      title: 'Restaurant Booking System',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, Prisma, PostgreSQL)',
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop',
-      category: 'Web Design'
-    },
-    {
-      id: 11,
-      title: 'Healthcare Dashboard',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(React, Node.js, MongoDB)',
-      image: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=600&fit=crop',
-      category: 'Dashboard'
-    },
-    {
-      id: 12,
-      title: 'Real Estate Portal',
-      description: 'Lorem ipsum dolor sit amet consectetur. Non in et et tristique scelerisque adipiscing faucibus',
-      tech: '(Next.js, Strapi, Vercel)',
-      image: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=800&h=600&fit=crop',
-      category: 'Web Design'
-    }
-  ];
+
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -358,10 +262,10 @@ function ProjectCard({ project, hoveredCard, setHoveredCard }: ProjectCardProps)
           <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 group-hover:text-purple-400 transition-colors">
             {project.title}
           </h3>
-          <p className="text-gray-400 text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">
+          <p className="text-gray-400 text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed line-clamp-3">
             {project.description}
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-4">
             {project.tags.map((tag) => (
               <span 
                 key={tag}
@@ -371,6 +275,17 @@ function ProjectCard({ project, hoveredCard, setHoveredCard }: ProjectCardProps)
               </span>
             ))}
           </div>
+          {project.website && (
+            <a
+              href={project.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 rounded-full bg-purple-600 hover:bg-purple-500 text-white text-xs sm:text-sm font-semibold transition-all duration-300 shadow-lg hover:shadow-purple-500/50"
+            >
+              <span>Visit Website</span>
+              <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
+            </a>
+          )}
         </div>
 
         {/* Image Section */}
