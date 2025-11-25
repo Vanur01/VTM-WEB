@@ -13,16 +13,24 @@ export default function ProjectsGrid() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const itemsPerPage = 24;
 
-  // Fetch all data once
+  // Debounce search term
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      setError('');
-      
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm);
+      setCurrentPage(1);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  // Fetch categories once
+  useEffect(() => {
+    const fetchCategories = async () => {
       try {
-        // Fetch categories
         const categoriesResponse = await categoryApi.getAllCategories({ limit: 100 });
         if (categoriesResponse.success && categoriesResponse.result && Array.isArray(categoriesResponse.result)) {
           const validCategories = categoriesResponse.result.filter(
@@ -30,27 +38,41 @@ export default function ProjectsGrid() {
           );
           setCategories(validCategories);
         }
+      } catch (err: any) {
+        console.error('Failed to fetch categories:', err);
+      }
+    };
 
-        // Fetch all projects
+    fetchCategories();
+  }, []);
+
+  // Fetch projects with search only
+  useEffect(() => {
+    const fetchProjects = async () => {
+      setIsLoading(true);
+      setError('');
+      
+      try {
         const projectsResponse = await projectApi.getAllProjects({
           page: 1,
-          limit: 1000, // Fetch all projects
+          limit: 1000,
+          search: debouncedSearch,
         });
 
         if (projectsResponse.success) {
           setAllProjects(projectsResponse.result.projects);
         }
       } catch (err: any) {
-        setError(err.message || 'Failed to fetch data');
+        setError(err.message || 'Failed to fetch projects');
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchProjects();
+  }, [debouncedSearch]);
 
-  // Frontend filtering
+  // Frontend filtering by category
   const filteredProjects = selectedCategory === 'All' 
     ? allProjects 
     : allProjects.filter(project => {
@@ -65,8 +87,6 @@ export default function ProjectsGrid() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const projects = filteredProjects.slice(startIndex, endIndex);
-
-
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -104,43 +124,93 @@ export default function ProjectsGrid() {
             Explore our complete portfolio of digital creations
           </motion.p>
 
-          {/* Category Filter */}
+          {/* Category Filter and Search */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap gap-2 sm:gap-3"
+            className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between"
           >
-            <button
-              onClick={() => {
-                setSelectedCategory('All');
-                setCurrentPage(1);
-              }}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 ${
-                selectedCategory === 'All'
-                  ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/50'
-                  : 'bg-purple-900/20 text-gray-400 border border-purple-900/50 hover:border-purple-600 hover:text-white'
-              }`}
-            >
-              All
-            </button>
-            {categories.map((category) => (
+            {/* Category Filter - Horizontal Scroll */}
+            <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide w-full lg:w-auto">
               <button
-                key={category._id}
                 onClick={() => {
-                  setSelectedCategory(category._id);
+                  setSelectedCategory('All');
                   setCurrentPage(1);
                 }}
-                className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 ${
-                  selectedCategory === category._id
+                className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
+                  selectedCategory === 'All'
                     ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/50'
                     : 'bg-purple-900/20 text-gray-400 border border-purple-900/50 hover:border-purple-600 hover:text-white'
                 }`}
               >
-                {category.name}
+                All
               </button>
-            ))}
+              {categories.slice(0, 3).map((category) => (
+                <button
+                  key={category._id}
+                  onClick={() => {
+                    setSelectedCategory(category._id);
+                    setCurrentPage(1);
+                  }}
+                  className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
+                    selectedCategory === category._id
+                      ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/50'
+                      : 'bg-purple-900/20 text-gray-400 border border-purple-900/50 hover:border-purple-600 hover:text-white'
+                  }`}
+                >
+                  {category.name}
+                </button>
+              ))}
+            </div>
+
+            {/* Search Field */}
+            <div className="relative w-full lg:w-80">
+              <input
+                type="text"
+                placeholder="Search projects..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-4 py-2.5 pl-10 bg-purple-900/20 border border-purple-900/50 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+              />
+              <svg
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
           </motion.div>
+
+          {/* Search Info */}
+          {debouncedSearch && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="mt-4 text-sm text-gray-400"
+            >
+              {isLoading ? (
+                <span>🔍 Searching...</span>
+              ) : (
+                <span>
+                  Found {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''} for "{debouncedSearch}"
+                  {filteredProjects.length > 0 && ` (showing page ${currentPage} of ${totalPages})`}
+                </span>
+              )}
+            </motion.div>
+          )}
         </div>
 
         {/* Loading State */}
@@ -167,48 +237,52 @@ export default function ProjectsGrid() {
         {!isLoading && !error && (
           <div className="space-y-6 sm:space-y-8">
             {projects.length === 0 ? (
-            <div className="text-center py-12 sm:py-20">
-              <p className="text-gray-400 text-lg sm:text-xl">No projects found in this category.</p>
-            </div>
-          ) : (
-            <>
-              {/* Render projects in alternating layout */}
-              {Array.from({ length: Math.ceil(projects.length / 2) }).map((_, rowIndex) => {
-                const project1 = projects[rowIndex * 2];
-                const project2 = projects[rowIndex * 2 + 1];
-                const isEvenRow = rowIndex % 2 === 0;
+              <div className="text-center py-12 sm:py-20">
+                <p className="text-gray-400 text-lg sm:text-xl">
+                  {debouncedSearch || selectedCategory !== 'All'
+                    ? 'No projects found matching your criteria.'
+                    : 'No projects available yet.'}
+                </p>
+              </div>
+            ) : (
+              <>
+                {/* Render projects in alternating layout */}
+                {Array.from({ length: Math.ceil(projects.length / 2) }).map((_, rowIndex) => {
+                  const project1 = projects[rowIndex * 2];
+                  const project2 = projects[rowIndex * 2 + 1];
+                  const isEvenRow = rowIndex % 2 === 0;
 
-                return (
-                  <div key={rowIndex} className="flex flex-col lg:flex-row gap-6 sm:gap-8">
-                    {project1 && (
-                      <motion.div 
-                        custom={rowIndex * 2}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.3 }}
-                        variants={cardVariants}
-                        className={`w-full ${isEvenRow ? 'lg:w-[40%]' : 'lg:w-[60%]'}`}
-                      >
-                        <ProjectCard project={project1} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-                      </motion.div>
-                    )}
-                    {project2 && (
-                      <motion.div 
-                        custom={rowIndex * 2 + 1}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.3 }}
-                        variants={cardVariants}
-                        className={`w-full ${isEvenRow ? 'lg:w-[60%]' : 'lg:w-[40%]'}`}
-                      >
-                        <ProjectCard project={project2} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-                      </motion.div>
-                    )}
-                  </div>
-                );
-              })}
-            </>
-          )}
+                  return (
+                    <div key={rowIndex} className="flex flex-col lg:flex-row gap-6 sm:gap-8">
+                      {project1 && (
+                        <motion.div 
+                          custom={rowIndex * 2}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true, amount: 0.3 }}
+                          variants={cardVariants}
+                          className={`w-full ${isEvenRow ? 'lg:w-[40%]' : 'lg:w-[60%]'}`}
+                        >
+                          <ProjectCard project={project1} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                        </motion.div>
+                      )}
+                      {project2 && (
+                        <motion.div 
+                          custom={rowIndex * 2 + 1}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true, amount: 0.3 }}
+                          variants={cardVariants}
+                          className={`w-full ${isEvenRow ? 'lg:w-[60%]' : 'lg:w-[40%]'}`}
+                        >
+                          <ProjectCard project={project2} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                        </motion.div>
+                      )}
+                    </div>
+                  );
+                })}
+              </>
+            )}
 
             {/* Pagination */}
             {totalPages > 1 && (
@@ -265,8 +339,10 @@ function ProjectCard({ project, hoveredCard, setHoveredCard }: ProjectCardProps)
           <p className="text-gray-400 text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed line-clamp-3">
             {project.description}
           </p>
+          
+          {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-4">
-            {project.tags.map((tag) => (
+            {project.tags && project.tags.length > 0 && project.tags.map((tag) => (
               <span 
                 key={tag}
                 className="px-3 sm:px-4 py-1 rounded-full bg-purple-900/30 text-purple-400 text-xs sm:text-sm font-semibold"
@@ -275,6 +351,8 @@ function ProjectCard({ project, hoveredCard, setHoveredCard }: ProjectCardProps)
               </span>
             ))}
           </div>
+          
+          {/* Visit Website Button */}
           {project.website && (
             <a
               href={project.website}

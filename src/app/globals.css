@@ -24,3 +24,13 @@ body {
   font-family: var(--font-montserrat), system-ui, -apple-system, sans-serif;
   min-height: 100vh;
 }
+
+/* Hide scrollbar for horizontal scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
