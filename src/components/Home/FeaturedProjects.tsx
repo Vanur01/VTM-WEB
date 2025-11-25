@@ -37,72 +37,7 @@ export default function FeaturedProjects() {
     fetchProjects();
   }, []);
 
-  const projectsOld = [
-    {
-      id: 1,
-      title: 'Naman Construction Pvt. Ltd',
-      description: 'Complete digital solution for a leading construction company featuring project showcases, client testimonials, and real-time project tracking with interactive galleries.',
-      tech: '(Next.js, Prisma, PostgreSQL)',
-      image: '/images/projects/prj-1.webp',
-      tag: 'Construction'
-    },
-    {
-      id: 2,
-      title: 'Radhamohan Construction',
-      description: 'Modern construction company website with portfolio management, service listings, and client engagement features to showcase residential and commercial projects.',
-      tech: '(React, Node.js, MongoDB)',
-      image: '/images/projects/prj-2.webp',
-      tag: 'Construction'
-    },
-    {
-      id: 3,
-      title: 'THE Materials',
-      description: 'E-commerce platform for furniture materials and design solutions with advanced product catalog, custom quotations, and seamless ordering system for interior designers.',
-      tech: '(Next.js, Stripe, Tailwind CSS)',
-      image: '/images/projects/prj-3.webp',
-      tag: 'E-Commerce'
-    },
-    {
-      id: 4,
-      title: 'CFDRA - Book Publications',
-      description: 'Comprehensive publishing platform for academic research and book publications, offering manuscript evaluation, editing, ISBN services, and complete publication management.',
-      tech: '(Next.js, Headless CMS, Vercel)',
-      image: '/images/projects/prj-4.webp',
-      tag: 'Publishing'
-    },
-    {
-      id: 5,
-      title: 'Zilusion Design',
-      description: 'Creative portfolio and business website for a design agency showcasing branding projects, UI/UX designs, and creative services with stunning visual presentations.',
-      tech: '(Vue.js, Firebase, Netlify)',
-      image: '/images/projects/prj-5.webp',
-      tag: 'Design Agency'
-    },
-    {
-      id: 6,
-      title: 'Bijaya Infrastructure',
-      description: 'Professional infrastructure company website featuring major construction projects, engineering solutions, and service offerings with detailed project timelines and achievements.',
-      tech: '(React, TypeScript, AWS)',
-      image: '/images/projects/prj-6.webp',
-      tag: 'Infrastructure'
-    },
-    {
-      id: 7,
-      title: 'Naman Construction Pvt. Ltd',
-      description: 'Complete digital solution for a leading construction company featuring project showcases, client testimonials, and real-time project tracking with interactive galleries.',
-      tech: '(Next.js, Prisma, PostgreSQL)',
-      image: '/images/projects/prj-1.webp',
-      tag: 'Construction'
-    },
-    {
-      id: 8,
-      title: 'Radhamohan Construction',
-      description: 'Modern construction company website with portfolio management, service listings, and client engagement features to showcase residential and commercial projects.',
-      tech: '(React, Node.js, MongoDB)',
-      image: '/images/projects/prj-2.webp',
-      tag: 'Construction'
-    }
-  ];
+
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -188,82 +123,102 @@ export default function FeaturedProjects() {
         {!isLoading && !error && projects.length > 0 && (
           <div className="space-y-6 sm:space-y-8 mt-12 sm:mt-20">
             {/* Row 1: 40% - 60% */}
-            {projects[0] && projects[1] && (
+            {projects.length >= 1 && (
               <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
-                <motion.div
-                  custom={0}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  variants={cardVariants}
-                  className="w-full lg:w-[40%]"
-                >
-                  <ProjectCard project={projects[0]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-                </motion.div>
-                <motion.div
-                  custom={1}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  variants={cardVariants}
-                  className="w-full lg:w-[60%]"
-                >
-                  <ProjectCard project={projects[1]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-                </motion.div>
+                {projects[0] && (
+                  <motion.div
+                    custom={0}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={cardVariants}
+                    className="w-full lg:w-[40%]"
+                  >
+                    <ProjectCard project={projects[0]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                  </motion.div>
+                )}
+                {projects[1] && (
+                  <motion.div
+                    custom={1}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={cardVariants}
+                    className="w-full lg:w-[60%]"
+                  >
+                    <ProjectCard project={projects[1]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                  </motion.div>
+                )}
               </div>
             )}
 
             {/* Row 2: 60% - 40% */}
-            {projects[2] && projects[3] && (
+            {projects.length >= 3 && (
               <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
-                <motion.div
-                  custom={2}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  variants={cardVariants}
-                  className="w-full lg:w-[60%]"
-                >
-                  <ProjectCard project={projects[2]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-                </motion.div>
-                <motion.div
-                  custom={3}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  variants={cardVariants}
-                  className="w-full lg:w-[40%]"
-                >
-                  <ProjectCard project={projects[3]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-                </motion.div>
+                {projects[2] && (
+                  <motion.div
+                    custom={2}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={cardVariants}
+                    className="w-full lg:w-[60%]"
+                  >
+                    <ProjectCard project={projects[2]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                  </motion.div>
+                )}
+                {projects[3] && (
+                  <motion.div
+                    custom={3}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={cardVariants}
+                    className="w-full lg:w-[40%]"
+                  >
+                    <ProjectCard project={projects[3]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                  </motion.div>
+                )}
               </div>
             )}
 
             {/* Row 3: 40% - 60% */}
-            {projects[4] && projects[5] && (
+            {projects.length >= 5 && (
               <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
-                <motion.div
-                  custom={4}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  variants={cardVariants}
-                  className="w-full lg:w-[40%]"
-                >
-                  <ProjectCard project={projects[4]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-                </motion.div>
-                <motion.div
-                  custom={5}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  variants={cardVariants}
-                  className="w-full lg:w-[60%]"
-                >
-                  <ProjectCard project={projects[5]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
-                </motion.div>
+                {projects[4] && (
+                  <motion.div
+                    custom={4}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={cardVariants}
+                    className="w-full lg:w-[40%]"
+                  >
+                    <ProjectCard project={projects[4]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                  </motion.div>
+                )}
+                {projects[5] && (
+                  <motion.div
+                    custom={5}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={cardVariants}
+                    className="w-full lg:w-[60%]"
+                  >
+                    <ProjectCard project={projects[5]} hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} />
+                  </motion.div>
+                )}
               </div>
             )}
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!isLoading && !error && projects.length === 0 && (
+          <div className="text-center py-20">
+            <Sparkles className="w-16 h-16 text-purple-400 mx-auto mb-6" />
+            <p className="text-gray-400 text-lg">No featured projects available yet.</p>
           </div>
         )}
 

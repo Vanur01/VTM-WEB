@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'backend.vanurmedia.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'aceternity.com',
         pathname: '/images/**',
       },
