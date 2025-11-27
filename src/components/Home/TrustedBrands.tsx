@@ -36,12 +36,12 @@ export default function TrustedBrands() {
 
   return (
     <div
-      className="flex items-center justify-center p-8"
+      className="flex items-center justify-center py-8"
       style={{ backgroundColor: "#0A0012" }}
     >
       <div className="max-w-full w-full">
         {/* Header Text */}
-        <div className="text-center mb-16">
+        <div className="text-center mx-5 mb-16">
           <h1 className="text-xl md:text-3xl lg:text-4xl font-bold mb-6 leading-tight">
             <span className="text-white">We create </span>
             <span className="text-purple-500 italic">custom websites</span>
@@ -127,20 +127,20 @@ export default function TrustedBrands() {
           }
 
           .animate-scroll-left {
-            animation: scroll-left 20s linear infinite;
+            animation: scroll-left 10s linear infinite;
           }
 
           .animate-scroll-right {
-            animation: scroll-right 20s linear infinite;
+            animation: scroll-right 10s linear infinite;
           }
 
           /* Slower animation on small screens for better readability */
           @media (max-width: 640px) {
             .animate-scroll-left {
-              animation-duration: 30s;
+              animation-duration: 15s;
             }
             .animate-scroll-right {
-              animation-duration: 30s;
+              animation-duration: 15s;
             }
           }
 

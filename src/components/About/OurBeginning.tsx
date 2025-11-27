@@ -11,7 +11,7 @@ export default function OurBeginning() {
     <div className="my-40 flex items-center justify-center p-4 md:p-8" style={{ backgroundColor: '#0A0012' }}>
       <div className="max-w-6xl w-full">
         <div className="flex flex-col md:flex-row items-center md:items-center gap-8 md:gap-12">
-          {/* Large 2023 Text */}
+          {/* Large 2021 Text */}
           <div 
             className="relative"
             style={{
@@ -21,14 +21,14 @@ export default function OurBeginning() {
             }}
           >
             <div 
-              className="text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] font-bold leading-none select-none"
+              className="text-[120px] sm:text-[120px] md:text-[160px] lg:text-[200px] font-bold leading-none select-none"
               style={{
                 WebkitTextStroke: '1px rgba(255, 255, 255, 0.1)',
                 color: 'transparent',
                 fontFamily: 'Arial, sans-serif'
               }}
             >
-              2023
+              2021
             </div>
           </div>
 

@@ -104,30 +104,34 @@ export default function Footer() {
 
             {/* Social Icons */}
             <div className="flex gap-3 sm:gap-4">
-              <a
+              {/* <a
                 href="#"
                 className="text-white hover:text-purple-300 transition-colors"
               >
                 <Twitter size={20} className="sm:w-6 sm:h-6" />
-              </a>
+              </a> */}
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=61551470674556"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white hover:text-purple-300 transition-colors"
               >
                 <Facebook size={20} className="sm:w-6 sm:h-6" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/vanur_media?igsh=M2JjYmF3YWNianVh"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white hover:text-purple-300 transition-colors"
               >
                 <Instagram size={20} className="sm:w-6 sm:h-6" />
               </a>
-              <a
+              {/* <a
                 href="#"
                 className="text-white hover:text-purple-300 transition-colors"
               >
                 <Github size={20} className="sm:w-6 sm:h-6" />
-              </a>
+              </a> */}
             </div>
           </div>
 

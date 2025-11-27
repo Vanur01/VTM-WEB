@@ -40,7 +40,7 @@ export default function ImpactStats() {
                   background: "linear-gradient(135deg, #ffffff 0%, #ffffff 50%, #ffffff 100%)",
                 }}
               >
-                <div className="rounded-full p-4 sm:p-6 md:p-8 text-center relative overflow-hidden flex items-center justify-center bg-white">
+                <div className="rounded-full p-4 sm:p-6 md:p-8 text-center relative overflow-hidden flex items-center justify-center bg-white/30">
                   <img
                     src="/images/logo-1.png"
                     alt="Logo"
