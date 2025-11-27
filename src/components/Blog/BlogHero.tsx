@@ -25,7 +25,7 @@ export default function BlogHero() {
       <div className="absolute inset-0 bg-linear-to-t from-[#0A0012] via-transparent to-transparent"></div>
 
       {/* Content */}
-      <div className="relative z-10 flex items-center justify-center my-20 px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20">
+      <div className="relative z-10 flex items-center justify-center mt-20 px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-10 ">
         <div className="text-center max-w-4xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

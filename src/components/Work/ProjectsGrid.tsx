@@ -102,7 +102,7 @@ export default function ProjectsGrid() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 md:p-8 py-12 sm:py-16 md:py-20" style={{ backgroundColor: '#0B0011' }}>
+    <div className=" flex items-center justify-center p-4 sm:p-6 md:p-8 py-12 sm:py-16 md:py-20" style={{ backgroundColor: '#0B0011' }}>
       <div className="max-w-7xl w-full">
         {/* Header */}
         <div className="mb-12 sm:mb-16">

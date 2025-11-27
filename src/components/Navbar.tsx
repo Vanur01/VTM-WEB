@@ -33,7 +33,7 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed z-[2999] top-0 left-0 right-0  transition-all duration-300 ${
         scrolled ? "bg-[#0B0011]/95 backdrop-blur-md shadow-lg" : "bg-transparent"
       }`}
     >
