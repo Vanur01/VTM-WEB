@@ -60,7 +60,7 @@ export default function CTASection() {
     <div className=" my-20 w-full bg-[#0B0011] px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-10">
       {/* Toast Notification */}
       {notification && (
-        <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2 duration-300">
+        <div className="fixed top-4 right-4 z-[3999] animate-in slide-in-from-top-2 duration-300">
           <div
             className={`flex items-center gap-3 rounded-xl px-4 sm:px-6 py-3 sm:py-4 shadow-2xl backdrop-blur-lg border max-w-md ${
               notification.type === "success"
