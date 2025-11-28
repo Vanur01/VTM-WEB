@@ -37,12 +37,12 @@ export default function Partners() {
 
   return (
     <div
-      className=" my-30 flex items-center justify-center p-4 sm:p-6 md:p-8"
+      className="flex items-center justify-center py-8"
       style={{ backgroundColor: "#0A0012" }}
     >
       <div className="max-w-full w-full">
         {/* Header Text */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mx-5 mb-16">
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium mb-4 sm:mb-6 leading-tight">
             <span className="text-white">Partners </span>
           </h1>

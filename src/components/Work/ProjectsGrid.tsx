@@ -146,7 +146,7 @@ export default function ProjectsGrid() {
               >
                 All
               </button>
-              {categories.slice(0, 3).map((category) => (
+              {categories.map((category) => (
                 <button
                   key={category._id}
                   onClick={() => {
