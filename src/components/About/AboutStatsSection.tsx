@@ -34,7 +34,7 @@ export default function AboutStatsSection() {
         setCounts({
           years: 5,
           results: 99,
-          projects: 200,
+          projects: 317,
           hours: 50
         });
       }

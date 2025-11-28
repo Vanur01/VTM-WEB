@@ -64,7 +64,7 @@ export default function ImpactStats() {
                   }}
                 >
                   <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white italic mb-1 sm:mb-2">
-                    170+
+                    317+
                   </div>
                   <div className="text-purple-300 text-xs sm:text-sm md:text-base">Projects Delivered</div>
                 </div>

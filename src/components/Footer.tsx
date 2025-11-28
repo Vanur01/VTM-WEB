@@ -4,6 +4,7 @@ import {
   Facebook,
   Instagram,
   Github,
+  Linkedin,
   MapPin,
   Phone,
   Mail,
@@ -125,6 +126,14 @@ export default function Footer() {
                 className="text-white hover:text-purple-300 transition-colors"
               >
                 <Instagram size={20} className="sm:w-6 sm:h-6" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/vanurmedia/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-purple-300 transition-colors"
+              >
+                <Linkedin size={20} className="sm:w-6 sm:h-6" />
               </a>
               {/* <a
                 href="#"

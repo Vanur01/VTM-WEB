@@ -23,7 +23,7 @@ const Navbar = () => {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
-    { href: "/work", label: "Projects" },
+    { href: "/projects", label: "Projects" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact Us" },
   ];
@@ -44,12 +44,15 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             className="flex items-center space-x-2"
           >
-            <Image
-              src="/images/logo-1.png"
-              alt="Vanur Logo"
-              width={40}
-              height={40}
-            />
+            <Link href="/">
+              <Image
+                src="/images/logo-1.png"
+                alt="Vanur Logo"
+                width={40}
+                height={40}
+                className="cursor-pointer"
+              />
+            </Link>
           </motion.div>
 
           {/* Desktop Navigation - Center */}
@@ -117,13 +120,16 @@ const Navbar = () => {
                 </motion.a>
               ))}
               <div className="pt-4">
-                <motion.button
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full bg-linear-to-r from-purple-600 to-purple-500 text-white py-3 rounded-full font-medium flex items-center justify-center space-x-2"
-                >
-                  <span>Start a Project</span>
-                  <ArrowRight className="h-4 w-4" />
-                </motion.button>
+                <Link href="/contact">
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setIsOpen(false)}
+                    className="w-full bg-linear-to-r from-purple-600 to-purple-500 text-white py-3 rounded-full font-medium flex items-center justify-center space-x-2"
+                  >
+                    <span>Start a Project</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </motion.button>
+                </Link>
               </div>
             </div>
           </motion.div>
