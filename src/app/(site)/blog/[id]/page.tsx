@@ -10,7 +10,7 @@ import { useParams } from 'next/navigation';
 import { blogApi, Blog } from '@/api';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-
+ 
 const BlogDetailPage = () => {
   const params = useParams();
   const id = params?.id as string;
@@ -131,13 +131,23 @@ const BlogDetailPage = () => {
               className="flex flex-wrap items-center gap-4 sm:gap-6 text-gray-400 mb-8"
             >
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold">
+                {/* <div className="w-10 h-10 rounded-full bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold">
                   {post.author.name.split(' ').map((n: string) => n[0]).join('')}
                 </div>
                 <div>
                   <div className="text-white font-medium">{post.author.name}</div>
                   <div className="text-sm">{post.author.email}</div>
-                </div>
+                </div> */}
+                <div className="w-10 h-10 rounded-full bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white font-bold">
+  {post.author?.name
+    ? post.author.name.split(' ').map((n: string) => n[0]).join('')
+    : 'AU'}
+</div>
+<div>
+  <div className="text-white font-medium">{post.author?.name || 'Unknown Author'}</div>
+  <div className="text-sm">{post.author?.email || 'No Email'}</div>
+</div>
+
               </div>
               <span className="flex items-center gap-1">
                 <Calendar size={16} />
@@ -156,12 +166,18 @@ const BlogDetailPage = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-wrap gap-2 mb-8"
             >
-              {post.tags.map((tag: string) => (
+              {/* {post.tags.map((tag: string) => (
                 <span key={tag} className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-purple-900/30 text-purple-400 text-sm">
                   <Tag size={14} />
                   {tag}
                 </span>
-              ))}
+              ))} */}
+              {post.tags?.map((tag: string) => (
+  <span key={tag} className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-purple-900/30 text-purple-400 text-sm">
+    <Tag size={14} /> {tag}
+  </span>
+)) || null}
+
             </motion.div>
           </div>
         </div>
