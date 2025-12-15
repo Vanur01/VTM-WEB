@@ -140,7 +140,7 @@ export default function RootLayout({
     name: "Vanur Media",
     url: "https://vanurmedia.com",
     logo: "https://vanurmedia.com/images/logo.png",
-    description: "Leading digital marketing and web development agency specializing in custom web applications, mobile apps, and SEO optimization.",
+    description: "Leading web development agency specializing in custom web applications, mobile apps, and SEO optimization.",
     address: {
       "@type": "PostalAddress",
       addressCountry: "US"
