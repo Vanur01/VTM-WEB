@@ -225,7 +225,7 @@ export default function ServicesList() {
           </h1>
 
           <p className="text-gray-400 text-base sm:text-lg md:text-xl">
-            Discover VanurTech Media's comprehensive service offerings.
+            Discover VanurTech Medias comprehensive service offerings.
           </p>
         </div>
 

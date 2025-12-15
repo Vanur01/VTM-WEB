@@ -170,7 +170,7 @@ export default function ServicesSection() {
           </h1>
           
           <p className="text-gray-400 text-lg sm:text-xl">
-            Experience VanurTech Media's complete digital solutions.
+            Experience VanurTech Medias complete digital solutions.
           </p>
         </div>
 

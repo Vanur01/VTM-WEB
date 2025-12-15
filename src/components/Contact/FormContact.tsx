@@ -94,7 +94,7 @@ export default function FormContact() {
               <span className="text-purple-500">Touch</span>
             </h2>
             <p className="text-gray-400 text-sm sm:text-base">
-              Fill out the form below and we'll get back to you shortly
+              Fill out the form below and we will get back to you shortly
             </p>
           </div>
 
@@ -147,7 +147,7 @@ export default function FormContact() {
             {/* What's in your mind */}
             <div>
               <label className="block text-white text-sm mb-3 sm:mb-4 font-medium">
-                What's in your mind <span className="text-purple-500">*</span>
+                Whats in your mind <span className="text-purple-500">*</span>
               </label>
               <div className="flex flex-wrap gap-2 sm:gap-3">
                 {interests.map((interest) => (
@@ -188,7 +188,7 @@ export default function FormContact() {
               {submitStatus === 'success' && (
                 <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-green-400 flex items-center justify-center gap-2 animate-fadeIn">
                   <Check size={20} />
-                  <span>Message sent successfully! We'll get back to you soon.</span>
+                  <span>Message sent successfully! We will get back to you soon.</span>
                 </div>
               )}
 
@@ -221,7 +221,7 @@ export default function FormContact() {
                   </>
                 ) : (
                   <>
-                    Let's Talk
+                    Lets Talk
                     <Send size={18} className="group-hover:translate-x-1 transition-transform" />
                   </>
                 )}

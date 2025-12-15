@@ -34,7 +34,7 @@ export default function HeroContact() {
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
               <span className="text-gray-400">Say Hello!</span>{' '}
-              <span className="text-white">and let's build something bold together.</span>
+              <span className="text-white">and lets build something bold together.</span>
             </h1>
           </motion.div>
 
@@ -44,7 +44,7 @@ export default function HeroContact() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-gray-400 text-sm sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto"
           >
-            Got an idea or project? We'd love to hear from you.
+            Got an idea or project? We love to hear from you.
           </motion.p>
 
           {/* Decorative Line */}
