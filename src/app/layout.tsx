@@ -16,7 +16,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL('https://vanurmedia.com'),
   title: {
-    default: "Vanur Media - Digital Marketing & Web Development Agency",
+    default: "Vanur Media -  Web Development Agency",
     template: "%s | Vanur Media"
   },
   description: "Vanur Media is a leading web development agency specializing in custom web applications and mobile apps and SEO optimization, and innovative digital solutions for businesses worldwide.",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://vanurmedia.com",
     siteName: "Vanur Media",
-    title: "Vanur Media - Digital Marketing & Web Development Agency",
+    title: "Vanur Media - Web Development Agency",
     description: "Transform your digital presence with Vanur Media. Expert web development, mobile apps, SEO, and innovative digital solutions tailored for your business growth.",
     images: [
       {
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@vanurmedia",
     creator: "@vanurmedia",
-    title: "Vanur Media - Digital Marketing & Web Development Agency",
+    title: "Vanur Media - Web Development Agency",
     description: "Transform your digital presence with expert web development, mobile apps, SEO, and innovative digital solutions.",
     images: ["/images/logo-1.png"],
   },
