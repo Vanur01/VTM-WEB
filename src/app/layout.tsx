@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "Vanur Media - Digital Marketing & Web Development Agency",
     template: "%s | Vanur Media"
   },
-  description: "Vanur Media is a leading web development agency specializing in custom web applications and  mobile apps, SEO optimization, and innovative digital solutions for businesses worldwide.",
+  description: "Vanur Media is a leading web development agency specializing in custom web applications and ,  mobile apps, SEO optimization, and innovative digital solutions for businesses worldwide.",
   keywords: [
     "digital marketing agency",
     "web development",
